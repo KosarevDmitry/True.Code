@@ -1,0 +1,11 @@
+﻿global using True.Code.ToDoListAPI.Models;
+global using True.Code.ToDoListAPI.Models.CTOs;
+global using True.Code.ToDoListAPI.Data;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using Microsoft.AspNetCore.Mvc;
+global using True.Code.ToDoListAPI.Infrastructure.Filters;
+global using True.Code.ToDoListAPI.Infrastructure.Exceptions;
+global using True.Code.ToDoListAPI.Infrastructure.Repositories;
+global using True.Code.ToDoListAPI.Infrastructure.ActionResults;
+global using True.Code.ToDoListAPI.Extensions;
+global using System.Net;
