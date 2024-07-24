@@ -2,6 +2,6 @@
 {
     public class DbSettings
     {
-        public bool Init { get; set; }
+        public bool Init { get; set; } = false;
     }
 }
