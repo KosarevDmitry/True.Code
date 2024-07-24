@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{E626
 		scripts\init.sh = scripts\init.sh
 		scripts\temp.sql = scripts\temp.sql
 		scripts\tools.sh = scripts\tools.sh
+		scripts\run_test.sh = scripts\run_test.sh
 	EndProjectSection
 EndProject
 Global
