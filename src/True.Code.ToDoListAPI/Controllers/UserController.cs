@@ -48,8 +48,6 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.Created)]
-    
-    [ProducesResponseType((int)HttpStatusCode.Created)]
     public async Task<ActionResult> AddAsync(string username)
     {
        var user  = new User { Name = username };
