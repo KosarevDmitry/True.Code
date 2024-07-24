@@ -1,29 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Newtonsoft.Json;
-using Xunit;
-using True.Code.ToDoListAPI.Models;
-using True.Code.ToDoListAPI.Models.CTOs;
-using True.Code.ToDoListAPI.Data;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using True.Code.ToDoListAPI.Infrastructure.Filters;
-using True.Code.ToDoListAPI.Infrastructure.Exceptions;
-using True.Code.ToDoListAPI.Infrastructure.Repositories;
-using True.Code.ToDoListAPI.Infrastructure.ActionResults;
-using True.Code.ToDoListAPI.Extensions;
-using System.Net;
 
 namespace True.Code.ToDoListAPI.Tests;
 
@@ -36,21 +10,21 @@ namespace True.Code.ToDoListAPI.Tests;
         public IntegrationTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory;
-            SetUpClient();// инициализирует HttpClient с помощью  _factory
+             Client=   SetUpClient();
         }
 
-		private void SetUpClient()
+		private HttpClient SetUpClient()
         {
-            Client = _factory.WithWebHostBuilder(builder =>
-                builder.UseStartup<Startup>()
+            return _factory.WithWebHostBuilder(builder =>
+                builder
                 .ConfigureServices(services =>
                 {
-                    var context = new TestProjectContext(new DbContextOptionsBuilder<TestProjectContext>()
-                        .UseSqlite("DataSource=:memory:")
+                    var context = new ToDoItemDbContext(new DbContextOptionsBuilder<ToDoItemDbContext>()
+                        .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ToDoItemDb;Trusted_Connection=True")
                         .EnableSensitiveDataLogging()
                         .Options);
 
-                    services.RemoveAll(typeof(TestProjectContext));
+                    services.RemoveAll(typeof(ToDoItemDbContext));
                     services.AddSingleton(context);
 
                     context.Database.OpenConnection();
@@ -66,116 +40,62 @@ namespace True.Code.ToDoListAPI.Tests;
                 })).CreateClient();
         }
 		
-		// отправляет постом 4 модели библиотеки
-        private async Task SeedLibraries()
+	
+        private async Task SeedUser()
         {
-            var createForm0 = GenerateLibraryCreateForm("Library Name 1");
-            var response0 = await Client.PostAsync("/api/libraries", new StringContent(JsonConvert.SerializeObject(createForm0), Encoding.UTF8, "application/json"));
+            string urlbase = "/api/v1/User";
+            var createForm0 = GenerateUserCreateForm("Hulio");
+            var response0 = await Client.PostAsync(urlbase, new StringContent(JsonConvert.SerializeObject(createForm0), Encoding.UTF8, "application/json"));
 
-            var createForm1 = GenerateLibraryCreateForm("Library Name 2");
-            var response1 = await Client.PostAsync("/api/libraries", new StringContent(JsonConvert.SerializeObject(createForm1), Encoding.UTF8, "application/json"));
+            var createForm1 = GenerateUserCreateForm("Lopes");
+            var response1 = await Client.PostAsync(urlbase, new StringContent(JsonConvert.SerializeObject(createForm1), Encoding.UTF8, "application/json"));
 
-            var createForm2 = GenerateLibraryCreateForm("Library Name 3");
-            var response2 = await Client.PostAsync("/api/libraries", new StringContent(JsonConvert.SerializeObject(createForm2), Encoding.UTF8, "application/json"));
+            var createForm2 = GenerateUserCreateForm("Marianna");
+            var response2 = await Client.PostAsync(urlbase, new StringContent(JsonConvert.SerializeObject(createForm2), Encoding.UTF8, "application/json"));
 
-            var createForm3 = GenerateLibraryCreateForm("Library Name 4");
-            var response3 = await Client.PostAsync("/api/libraries", new StringContent(JsonConvert.SerializeObject(createForm3), Encoding.UTF8, "application/json"));
+            var createForm3 = GenerateUserCreateForm("Dusha");
+            var response3 = await Client.PostAsync(urlbase, new StringContent(JsonConvert.SerializeObject(createForm3), Encoding.UTF8, "application/json"));
         }
 		
-		  private LibraryForm GenerateLibraryCreateForm(string libraryName)
+		  private User GenerateUserCreateForm(string UserName)
         {
-            return new LibraryForm
+            return new User
             {
-                Name = libraryName,
+                Name = UserName,
             };
         }
-		
-       // отправляет постом одну модель книги
-        public async Task SeedBook(string bookName, int libraryId)
+
+        private ToDoItemAddCTO GenerateToDoItemAddCto(string title, int userId)
         {
-            var bookForm = new BookForm
+            var toDoItemAddCto = new ToDoItemAddCTO()
             {
-                Name = bookName,
-                LibraryId = libraryId
+                Title = title,
+                Description = "Desc",
+                IsCompleted = false,
+                DueDate = DateTime.Today,
+                UserId = userId,
+                Level = 1,
             };
-            var response1 = await Client.PostAsync($"/api/libraries/{libraryId}/books",
-                new StringContent(JsonConvert.SerializeObject(bookForm), Encoding.UTF8, "application/json"));
+            return toDoItemAddCto;
         }
 
-      
-
-        // TEST NAME - addBookToLibrary
-        // TEST DESCRIPTION - It adds book to a library
         [Fact]
-        public async Task TestAddBook_Ok_GetBook_NotFound()
+        public async Task AddTodoItem_Ok ()
         {
-            await SeedLibraries();
-
-            var bookForm = new BookForm
-            {
-                Name = "Test book 1",
-                LibraryId = 1
-            };
-
-            var response1 = await Client.PostAsync($"/api/libraries/1/books",
-                new StringContent(JsonConvert.SerializeObject(bookForm), Encoding.UTF8, "application/json"));
-
-            response1.StatusCode.Should().BeEquivalentTo(StatusCodes.Status201Created);
-
-            bookForm = new BookForm
-            {
-                Name = "Test book 2",
-                LibraryId = 100
-            };
-
-            var response2 = await Client.PostAsync($"/api/libraries/100/books",
-                new StringContent(JsonConvert.SerializeObject(bookForm), Encoding.UTF8, "application/json"));
-
-            response2.StatusCode.Should().BeEquivalentTo(StatusCodes.Status404NotFound);
+            var form = GenerateToDoItemAddCto("Serg", 1);
+            var response1 = await Client.PostAsync("/api/v1/ToDoItem",
+            new StringContent(JsonConvert.SerializeObject(form), Encoding.UTF8, "application/json"));
+           Assert.Equal(StatusCodes.Status201Created,(int)response1.StatusCode );
         }
-
-        // TEST NAME - getBooksInALibrary
-        // TEST DESCRIPTION - It finds all books in a library by ID
+        
         [Fact]
-        public async Task TestGetBooks_Ok_NotFound()
+        public async Task AddTodoItem_withnotValidUserId_500 ()
         {
-            await SeedLibraries();
-
-            await SeedBook("test book 1", 1);
-            await SeedBook("test book 2", 1);
-
-            var response1 = await Client.GetAsync($"/api/libraries/2/books");
-            response1.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
-            var books = JsonConvert.DeserializeObject<IEnumerable<Book>>(response1.Content.ReadAsStringAsync().Result).ToList();
-            books.Count.Should().Be(0);
-            
-            var response2 = await Client.GetAsync($"/api/libraries/1/books");
-            response2.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
-            var books2 = JsonConvert.DeserializeObject<IEnumerable<Book>>(response2.Content.ReadAsStringAsync().Result).ToList();
-            books2.Count.Should().Be(2);
-
-            var response3 = await Client.GetAsync($"/api/libraries/31232/books");
-            response3.StatusCode.Should().BeEquivalentTo(StatusCodes.Status404NotFound);
+            var  form = GenerateToDoItemAddCto("Serg", 150);
+            var response = await Client.PostAsync($"/api/v1/ToDoItem",
+            new StringContent(JsonConvert.SerializeObject(form), Encoding.UTF8, "application/json"));
+            Assert.Equal((int?)response?.StatusCode, StatusCodes.Status500InternalServerError);
         }
-
-        // TEST NAME - deleteLibraryById
-        // TEST DESCRIPTION - Check delete library web api end point
-        [Fact]
-        public async Task TestDeleteLibrary()
-        {
-            await SeedLibraries();
-
-            var response0 = await Client.DeleteAsync("/api/libraries/1");
-            response0.StatusCode.Should().BeEquivalentTo(StatusCodes.Status204NoContent);
-
-            // Verify that delete is successful
-            var response1 = await Client.GetAsync("/api/libraries/1/books");
-            response1.StatusCode.Should().BeEquivalentTo(StatusCodes.Status404NotFound);
-
-            var response2 = await Client.DeleteAsync("/api/libraries/1");
-            response2.StatusCode.Should().BeEquivalentTo(StatusCodes.Status404NotFound);
-        }
-
-       
+        
     }
 
