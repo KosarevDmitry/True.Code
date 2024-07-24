@@ -15,7 +15,7 @@ public class User
     [MaxLength(100)]
     [Required]
     [Column(Order = 1)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
    
     [JsonIgnore]
     public ICollection<ToDoItem> ToDoItems { get; } = new List<ToDoItem>();

@@ -4,7 +4,7 @@ namespace True.Code.ToDoListAPI.Models;
 
 public interface IToDoItemRepository
 {
-    Task<ToDoItemCTO> GetById(int id);
+    Task<ToDoItemCTO?> GetById(int id);
 
     Task<ToDoItem> Add(ToDoItem toDoItemCTO);
 

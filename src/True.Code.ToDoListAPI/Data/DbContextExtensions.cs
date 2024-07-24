@@ -29,11 +29,11 @@ public static class DbContextExtensions
     {
         using var scope = app.ApplicationServices.CreateScope();
         var context = scope.ServiceProvider.GetService<ToDoItemDbContext>();
-        context.Database.EnsureCreated();
+        context?.Database.EnsureCreated();
 
-        DbSettings settings = configuration.GetSection(db).Get<DbSettings>();
-        if (settings.Init) context.Initialize();
+        DbSettings? settings = configuration.GetSection(db).Get<DbSettings>();
+        if (settings != null && settings.Init) context?.Initialize();
 
-        context.Database.CloseConnection();
+        context?.Database.CloseConnection();
     }
 }
