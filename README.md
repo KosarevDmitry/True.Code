@@ -17,3 +17,6 @@ dotnet run
 rm -rf reports && dotnet build && dotnet test --logger xunit --results-directory ./reports/
 ```
 
+- логирование в консоль
+- перехват ошибок в фильтре HttpGlobalExceptionFilter
+- automapper не добавлял
