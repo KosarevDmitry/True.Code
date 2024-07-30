@@ -20,7 +20,7 @@ public class ToDoItemController : ControllerBase
     [ProducesResponseType(typeof(ToDoItemCTO), (int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-    public async Task<ActionResult<ToDoItemCTO>> ItemByIdAsync(int id)
+    public async Task<ActionResult<ToDoItemCTO?>> ItemByIdAsync(int id)
     {
         if (id <= 0)
         {

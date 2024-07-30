@@ -14,7 +14,7 @@ public class ToDoItemRepository : IToDoItemRepository
         _context = testProjectContext;
     }
 
-    public async Task<ToDoItemCTO> GetById(int id)
+    public async Task<ToDoItemCTO?> GetById(int id)
     {
         var query = await (from d in _context.Set<ToDoItem>()
             join u in _context.Set<User>()
