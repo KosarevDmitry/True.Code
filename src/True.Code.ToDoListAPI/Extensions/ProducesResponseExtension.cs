@@ -6,6 +6,11 @@ namespace True.Code.ToDoListAPI.Extensions;
 
 public static class ProducesResponseExtension
 {
+    /// <summary>
+    /// Response validator
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
     public static IApplicationBuilder UseProducesOrSwaggerResponseCheck(this IApplicationBuilder app)
     {
         return app.UseMiddleware<SwaggerResponseCheck>();
@@ -37,21 +42,21 @@ public class SwaggerResponseCheck
                     .Union(metadata.OfType<ProducesResponseTypeAttribute>());
             }
 
-            //  affect only for Action with relevant attributes
+            // affect only for Action with relevant attributes
             if (attributes != null)
             {
                 var list = attributes.ToList();
                 if (list.Count() != 0 && list.Any(a => a.StatusCode == context.Response.StatusCode))
                 {
                     context.Response.StatusCode = 500;
-                    buffer.Seek(0, SeekOrigin.Begin);
+                    buffer.Seek(0, SeekOrigin.Begin); // rewrite
                     await context.Response.WriteAsync(
                         $"OpenAPI specification exception, unsupported status code: {context.Response.StatusCode}\npath: {context.Request.Path}");
                 }
             }
-            
+
             buffer.Seek(0, SeekOrigin.Begin);
-            await context.Response.Body.CopyToAsync(stream);
+            await buffer.CopyToAsync(stream); // write buffer to the end of stream
             context.Response.Body = stream;
         }
     }
