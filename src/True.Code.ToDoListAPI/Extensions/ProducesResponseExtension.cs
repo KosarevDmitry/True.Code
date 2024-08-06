@@ -42,11 +42,11 @@ public class SwaggerResponseCheck
                     .Union(metadata.OfType<ProducesResponseTypeAttribute>());
             }
 
-            // affect only for Action with relevant attributes
+            // если в списке валидных для точки кодов нет данного, то возвращаем 500 ошибку
             if (attributes != null)
             {
                 var list = attributes.ToList();
-                if (list.Count() != 0 && list.Any(a => a.StatusCode == context.Response.StatusCode))
+                if (list.Count() != 0 && !list.Exists(a => a.StatusCode == context.Response.StatusCode))
                 {
                     context.Response.StatusCode = 500;
                     buffer.Seek(0, SeekOrigin.Begin); // rewrite
