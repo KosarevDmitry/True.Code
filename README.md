@@ -1,8 +1,8 @@
  
 ## Список команд для запуска проекта
 
-- run
-- 
+- run:
+
 ```
 dotnet restore
 dotnet build
