@@ -13,6 +13,9 @@ namespace True.Code.ToDoListAPI.Tests;
              Client=   SetUpClient();
         }
 
+// WebApplicationFactory<Program>  это обертка над  
+// D:\src\aspnetcore\src\Hosting\TestHost\test\TestServerTests.cs
+// его можно тоже запускать непосредственно как сделано в swagger
 		private HttpClient SetUpClient()
         {
             return _factory.WithWebHostBuilder(builder =>
@@ -24,16 +27,16 @@ namespace True.Code.ToDoListAPI.Tests;
                         .EnableSensitiveDataLogging()
                         .Options);
 
-                    services.RemoveAll(typeof(ToDoItemDbContext));
+                    services.RemoveAll(typeof(ToDoItemDbContext)); // на всякий случай?
                     services.AddSingleton(context);
 
                     context.Database.OpenConnection();
                     context.Database.EnsureCreated();
 
-                    context.SaveChanges();
+                    context.SaveChanges(); // нужно точно?
 
                     // Clear local context cache
-                    foreach (var entity in context.ChangeTracker.Entries().ToList())
+                    foreach (var entity in context.ChangeTracker.Entries().ToList()) // если в Program что-то добавлялось то это нужно
                     {
                         entity.State = EntityState.Detached;
                     }
