@@ -1,5 +1,5 @@
  
-## Список команд для запуска проекта
+##  Command list
 
 - run:
 
@@ -17,6 +17,6 @@ dotnet run
 rm -rf reports && dotnet build && dotnet test --logger xunit --results-directory ./reports/
 ```
 
-- логирование в консоль
-- перехват ошибок в фильтре HttpGlobalExceptionFilter
-- automapper не добавлял
+- logging in console
+- Catch of Exception by HttpGlobalExceptionFilter
+- automapper is not added for simplicity
