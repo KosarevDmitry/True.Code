@@ -9,7 +9,6 @@ using True.Code.ToDoListAPI.Data;
 
 namespace True.Code.ToDoListAPI.Tests;
 
-
 public class CustomWebApplicationFactory<TProgram>
     : WebApplicationFactory<TProgram> where TProgram : class
 {
@@ -19,20 +18,20 @@ public class CustomWebApplicationFactory<TProgram>
         {
             var dbContextDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
-                    typeof(DbContextOptions<ToDoItemDbContext>));
+                     typeof(DbContextOptions<ToDoItemDbContext>));
 
             if (dbContextDescriptor != null) services.Remove(dbContextDescriptor);
 
             var dbConnectionDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
-                    typeof(DbConnection));
+                     typeof(DbConnection));
 
             if (dbConnectionDescriptor != null) services.Remove(dbConnectionDescriptor);
 
-            // Create open Connection so EF won't automatically close it.
             services.AddSingleton<DbConnection>(container =>
             {
-                var connection = new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=ToDoItemDb;Trusted_Connection=True");
+                var connection =
+                    new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=ToDoItemDb;Trusted_Connection=True");
                 connection.Open();
 
                 return connection;
@@ -48,4 +47,3 @@ public class CustomWebApplicationFactory<TProgram>
         builder.UseEnvironment("Development");
     }
 }
-

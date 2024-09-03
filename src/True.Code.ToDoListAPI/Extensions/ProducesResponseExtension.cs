@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
 using Swashbuckle.AspNetCore.Annotations; //additional nuget package
-using True.Code.ToDoListAPI.Helper;
 
 namespace True.Code.ToDoListAPI.Extensions;
 
@@ -42,7 +41,7 @@ public class SwaggerResponseCheck
                     .Union(metadata.OfType<ProducesResponseTypeAttribute>());
             }
 
-            // если в списке валидных для точки кодов нет данного, то возвращаем 500 ошибку
+            //if the list of valid codes for the endpoint doesn't contain this code, then we return error 500
             if (attributes != null)
             {
                 var list = attributes.ToList();
@@ -56,7 +55,8 @@ public class SwaggerResponseCheck
             }
 
             buffer.Seek(0, SeekOrigin.Begin);
-            await buffer.CopyToAsync(stream); // write buffer to the end of stream
+            // write buffer to the end of stream
+            await buffer.CopyToAsync(stream);
             context.Response.Body = stream;
         }
     }

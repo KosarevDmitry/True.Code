@@ -12,7 +12,6 @@ namespace True.Code.ToDoListAPI.Extensions
                 .Enrich.WithProperty("ApplicationContext", appName)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-               // .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
                 .ReadFrom.Configuration(builder.Configuration)
                 .CreateLogger();
 

@@ -1,9 +1,4 @@
-using System.Reflection;
-using True.Code.ToDoListAPI;
-using True.Code.ToDoListAPI.Data;
-using Microsoft.Extensions.Configuration;
 using Serilog;
-using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +14,7 @@ services.AddControllers(options =>
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
-/* если подключать через option, выполнить
- ```dotnet user-secrets init
- dotnet user-secrets set ToDoItemDb:ConnectionString "Server=(localdb)\mssqllocaldb;Database=ToDoItemDb;Trusted_Connection=True"
- ```
- и добавить константу в csproj
-*/
+
 services.AddToDoItemDb(builder.Configuration);
 
 services.AddScoped<IToDoItemRepository, ToDoItemRepository>();

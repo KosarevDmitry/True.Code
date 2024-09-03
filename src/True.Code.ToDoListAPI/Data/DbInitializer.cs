@@ -11,8 +11,8 @@ public static class DbInitializer
 
         var users = new User[]
         {
-            new User { Name = "Петр" },
-            new User { Name = "Иван" },
+            new User { Name = "Stefan" },
+            new User { Name = "Gorio" },
             new User { Name = "Milosh" }
         };
 
@@ -27,8 +27,8 @@ public static class DbInitializer
         {
             new ToDoItem()
             {
-                Title = "Командировка",
-                Description = "Что поделаешь - такая работа",
+                Title = "Business trip",
+                Description = "What can you do, that's the job",
                 DueDate = DateTime.Now.AddDays(1),
                 IsCompleted = false,
                 Level = 1,
@@ -36,8 +36,8 @@ public static class DbInitializer
             },
             new ToDoItem()
             {
-                Title = "Квартальный отчет",
-                Description = "Что поделаешь - такая работа",
+                Title = "Quarterly report",
+                Description = "What can you do, that's the job",
                 DueDate = DateTime.Now.AddDays(2),
                 IsCompleted = false,
                 Level = 2,
@@ -45,8 +45,8 @@ public static class DbInitializer
             },
             new ToDoItem()
             {
-                Title = "Калькуляция",
-                Description = "Что поделаешь - такая работа",
+                Title = "Calculation",
+                Description = "What can you do, that's the job",
                 DueDate = DateTime.Now.AddDays(3),
                 IsCompleted = false,
                 Level = 3,
