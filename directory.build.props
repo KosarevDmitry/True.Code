@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
-        <TargetFrameworks>net6.0</TargetFrameworks>
+        <Frameworks>net8.0</Frameworks>
     </PropertyGroup>
 </Project>
