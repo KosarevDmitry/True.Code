@@ -4,7 +4,7 @@ namespace True.Code.ToDoListAPI.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class PriorityController : ControllerBase
+public class PriorityController : ControllerBase, IPriorityController
 {
     private readonly IPriorityRepository _repository;
     private readonly ILogger<PriorityController> _logger;

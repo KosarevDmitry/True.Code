@@ -2,7 +2,7 @@
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class ToDoItemController : ControllerBase
+public class ToDoItemController : ControllerBase, IToDoItemController
 {
     private readonly ILogger<ToDoItemController> _logger;
     private readonly IToDoItemRepository _repository;
@@ -55,7 +55,7 @@ public class ToDoItemController : ControllerBase
         };
 
         var result = await _repository.Add(item);
-        //    return Created(new Uri(Request.Path, UriKind.Relative),content);
+
         return Created(new Uri(Request.Path, UriKind.Relative), item);
     }
 
