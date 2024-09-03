@@ -5,16 +5,16 @@ namespace True.Code.ToDoListAPI.Models.CTOs;
 
 public class ToDoItemAddCTO
 {
-    [JsonPropertyName("title")] public string? Title { get; set; }
+    [JsonPropertyName("title")] public string? Title { get; init; }
 
-    [JsonPropertyName("description")] public string? Description { get; set; }
+    [JsonPropertyName("description")] public string? Description { get; init; }
 
-    [JsonPropertyName("iscompleted")] public bool? IsCompleted { get; set; }
+    [JsonPropertyName("iscompleted")] public bool? IsCompleted { get; init; }
 
-    [JsonPropertyName("duedate")] public DateTime? DueDate { get; set; }
+    [JsonPropertyName("duedate")] public DateTime? DueDate { get; init; }
 
-    [JsonPropertyName("priority")] public int? Level { get; set; }
+    [JsonPropertyName("priority")] public int? Level { get; init; }
 
 
-    [JsonPropertyName("userId")] public int? UserId { get; set; }
+    [JsonPropertyName("userId")] public int? UserId { get; init; }
 }

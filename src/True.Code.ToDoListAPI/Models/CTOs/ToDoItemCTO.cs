@@ -1,28 +1,26 @@
 ﻿using System.Text.Json.Serialization;
 
-
 namespace True.Code.ToDoListAPI.Models.CTOs;
 
 public class ToDoItemCTO
 {
     [JsonPropertyName("id")]
     [JsonRequired]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    [JsonPropertyName("title")] public string? Title { get; set; }
+    [JsonPropertyName("title")] public string? Title { get; init; }
 
-    [JsonPropertyName("description")] public string? Description { get; set; }
+    [JsonPropertyName("description")] public string? Description { get; init; }
 
-    [JsonPropertyName("iscompleted")] public bool? IsCompleted { get; set; }
+    [JsonPropertyName("iscompleted")] public bool? IsCompleted { get; init; }
 
-    [JsonPropertyName("duedate")] public DateTime? DueDate { get; set; }
+    [JsonPropertyName("duedate")] public DateTime? DueDate { get; init; }
 
-    [JsonPropertyName("priority")] public int? Level { get; set; }
+    [JsonPropertyName("priority")] public int? Level { get; init; }
 
+    [JsonPropertyName("userId")] public int? UserId { get; init; }
 
-    [JsonPropertyName("userId")] public int? UserId { get; set; }
+    [JsonPropertyName("user")] public string? User { get; init; }
 
-    [JsonPropertyName("user")] public string? User { get; set; }
-
-    [JsonPropertyName("created")] public DateTime? Created { get; set; }
+    [JsonPropertyName("created")] public DateTime? Created { get; init; }
 }
