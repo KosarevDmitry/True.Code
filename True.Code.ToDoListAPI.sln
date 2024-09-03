@@ -8,14 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{6C06B43D-81FD-431C-8700-7EC7B16061B9}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		Описание.md = Описание.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A0A3CC00-4732-4011-A23C-1DC2DA0DF000}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "True.Code.ToDoListAPI", "src\True.Code.ToDoListAPI\True.Code.ToDoListAPI.csproj", "{182B130C-520E-420D-B2EF-8402DDB4B0B1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "True.Code.ToDoListAPI.Tests", "src\Tests\True.Code.ToDoListAPI.Tests\True.Code.ToDoListAPI.Tests.csproj", "{653F835B-1532-4E0A-A06F-A937B0DF5F30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{E6268BD8-3310-4256-84C5-A695F54C742C}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{E626
 		scripts\tools.sh = scripts\tools.sh
 		scripts\run_test.sh = scripts\run_test.sh
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3EF5B177-6E44-4217-A3FA-075CB55A7B8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "True.Code.ToDoListAPI.Tests", "src\Tests\True.Code.ToDoListAPI.Tests\True.Code.ToDoListAPI.Tests.csproj", "{E7CD7064-D88C-4424-83F9-9DA0DA87E07A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,17 +35,22 @@ Global
 		{182B130C-520E-420D-B2EF-8402DDB4B0B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{182B130C-520E-420D-B2EF-8402DDB4B0B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{182B130C-520E-420D-B2EF-8402DDB4B0B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{653F835B-1532-4E0A-A06F-A937B0DF5F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{653F835B-1532-4E0A-A06F-A937B0DF5F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{653F835B-1532-4E0A-A06F-A937B0DF5F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{653F835B-1532-4E0A-A06F-A937B0DF5F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE3C6ECC-AE80-41D7-8EF3-20D3050AA63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3C6ECC-AE80-41D7-8EF3-20D3050AA63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3C6ECC-AE80-41D7-8EF3-20D3050AA63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3C6ECC-AE80-41D7-8EF3-20D3050AA63B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7CD7064-D88C-4424-83F9-9DA0DA87E07A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7CD7064-D88C-4424-83F9-9DA0DA87E07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7CD7064-D88C-4424-83F9-9DA0DA87E07A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7CD7064-D88C-4424-83F9-9DA0DA87E07A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{182B130C-520E-420D-B2EF-8402DDB4B0B1} = {190F20AA-277B-4F99-A2B8-760029EE5DCF}
-		{653F835B-1532-4E0A-A06F-A937B0DF5F30} = {A0A3CC00-4732-4011-A23C-1DC2DA0DF000}
+		{3EF5B177-6E44-4217-A3FA-075CB55A7B8E} = {190F20AA-277B-4F99-A2B8-760029EE5DCF}
+		{E7CD7064-D88C-4424-83F9-9DA0DA87E07A} = {3EF5B177-6E44-4217-A3FA-075CB55A7B8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A64A061-4F7C-42D1-8B68-3E495B626E2B}
